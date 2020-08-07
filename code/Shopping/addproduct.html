@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    
+  
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    
+
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+      body {background-color: powderblue;}
+      .submit{
+        float:left;
+      }
+      .message {
+        margin-left: 20px;
+        margin-top:5px;
+        display: none;
+        float:left;
+      }
+      .submit:hover + .message{
+        display: block;
+        color: red;
+      }
+     
+    </style>
+    <title>Add new product</title>
+    <div id="nav-placeholder">
+
+    </div>
+</head>
+<body>
+  
+  
+    <div class="container">
+        <h2>Yang' Shopping Website -- Upload your product!</h2>
+      </div>
+      <div class="container">
+        <form method="post" enctype="multipart/form-data" action="upload.php">
+          
+        <div class="form-group">
+            <div class="col-sm-9">
+                <span class="btn btn-default btn-file">
+                  Ｍain Photo<input type="file" name="main" id="main" />
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-9"> Addition Photoes
+                <span class="btn btn-default btn-file">
+                    <input  name="addition[]" type="file" class="addition" id ="addition" multiple data-show-upload="true" data-show-caption="true">
+                </span>
+            
+            <button type="button" id="CheckFileType" class="btn btn-link">Check Upload File Type</button>
+          </div>
+            
+
+        </div>
+  
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" class="form-control" name='productName'>
+          </div>
+
+          <div class="form-group">
+            <label>Product Description</label>
+            <input type="text" class="form-control" name='productDescription'>
+          </div>
+
+          <div class="form-group">
+            <label>Product Price</label>
+            <input type="text" class="form-control" name='productPrice'>
+          </div>
+
+          <div class="form-group">
+            <label>Product Amount</label>
+            <input type="text" class="form-control" name='productAmount'>
+          </div>
+          <div class="form-group">
+            <label for="Producttype">Type</label>
+            <select name="Producttype" class="form-control">
+          
+          
+            <optgroup label="Electroic">
+              <option value="1">Cellphone</option>
+              <option value="2">Laptop</option>
+              <option value="3">Monitor</option>
+              <option value="4">Earphone</option>
+              <option value="9">other(ELETRONIC)</option>
+            </optgroup>
+            
+
+            <optgroup label="Book">
+              <option value="11">Textbook</option>
+              <option value="12">Novel</option>
+              <option value="13">Magazine</option>
+              <option value="19">other(BOOK)</option>
+            </optgroup>
+
+
+            <optgroup label="Furniture">
+              <option value="21">Lamp</option>
+              <option value="22">Desk</option>
+              <option value="23">Chair</option>
+              <option value="24">Sofa</option>
+
+              <option value="29">Other(FURNITURE)</option>
+            </optgroup>
+
+
+            <optgroup label="Clothes">
+              <option value="31">T-shirt</option>
+              <option value="32">Pants</option>
+            </optgroup>
+
+            </select>
+          </div>
+          
+          <button type="submit" class="btn btn-primary submit" name="submit" disabled id='submit'>Upload</button>
+          <span id = 'alert' class="message">  Please check the upload file.</span>
+        
+        </form>
+      </div>
+
+      <script>
+        $(function(){
+          $("#nav-placeholder").load("navigation.html");
+        });
+        document.getElementById("CheckFileType").addEventListener("click", function(){
+         
+          var checkfiletype= true;
+
+          var mainPhoto =  
+                document.getElementById('main'); 
+              
+          var MainPhtoPath = mainPhoto.value.toLowerCase(); 
+          if(MainPhtoPath.endsWith(".png") || MainPhtoPath.endsWith(".jpg") || MainPhtoPath.endsWith(".jpeg")){
+           // alert("Correct");
+          }
+          else{
+           // alert("Error");
+            checkfiletype=false;
+          }
+            
+          var addtionPhoto=document.getElementById('addition'); 
+          for(var i=0;i<addtionPhoto.files.length;i++){
+            
+            var filename= addtionPhoto.files[i].name.toLowerCase();
+            
+            if( !filename.endsWith(".png") && !filename.endsWith(".jpg") && !filename.endsWith(".jpeg")){
+              
+              checkfiletype=false;
+              break;
+            }
+            
+          }
+          if(!checkfiletype){
+            alert("Your upload files are not suitable. Please use (png,jpg,jpeg).");
+          }else{
+            alert("Your upload file are suitable!");
+            document.getElementById("alert").hidden=true;
+            document.getElementById("submit").disabled=false;
+
+          }
+
+        });
+
+      </script>
+</body>
+</html>
+
+
+
+
+
+
+  
